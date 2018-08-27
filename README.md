@@ -8,7 +8,7 @@ Example of dockerFile :
 version: '2'
 services:
   web:
-    image: pythonodoo:11.0
+    image: youraccount/YouImagen:11.0
     ports:
       - "8069:8069"
     volumes:
