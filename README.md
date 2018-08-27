@@ -28,3 +28,10 @@ services:
         POSTGRES_DB: "odooskeleton"
 
 ```
+### Considerations
+Alway use or change de odoo User
+```
+# su odoo
+$ pwd
+/home/odoo
+```
