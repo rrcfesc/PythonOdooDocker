@@ -25,6 +25,10 @@ RUN apt-get install nodejs curl -y
 RUN python2.7 -m pip install -U bpython && python3.5 -m pip install -U bpython
 RUN python3 -m pip install pyopenssl
 RUN python3 -m pip install ebaysdk
+RUN curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh
+RUN chmod +x nodesource_setup.sh && ./nodesource_setup.sh
+RUN apt-get install nodejs curl -y
+RUN npm install -g less
 ADD extraFiles/entrypoint.sh /usr/local/bin/entrypoint.sh
 ADD extraFiles/supervisor.conf /etc/supervisord.conf
 RUN chmod +x /usr/local/bin/entrypoint.sh
