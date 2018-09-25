@@ -53,7 +53,7 @@ RUN sed -i 's/ set mouse\=a/\"set mouse\=a/g' /home/${USER}/.vimrc
 RUN sed -i "s/let g:neocomplete#enable_at_startup = 1/let g:neocomplete#enable_at_startup = 0/g" /home/${USER}/.vimrc
 
 USER ${USER}
-WORKDIR /home/${USER}/source
+WORKDIR /home/${USER}
 
 EXPOSE 8069 8000
 
