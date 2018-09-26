@@ -1,9 +1,8 @@
-FROM python:3.5
+FROM python:3.6
 
 LABEL mantainer "rrcfesc@gmail.com"
 
 ENV USER odoo
-ENV VERSION 11.0
 ENV PORT 8000
 ENV ODOOPORT 8069
 
@@ -21,8 +20,8 @@ RUN echo "export LANG=en_US.UTF-8\nexport LANGUAGE=en_US.UTF-8\nexport LC_ALL=en
 RUN apt-get install -y gcc g++ apt-utils python-pip make libxml2-dev libxslt-dev libevent-dev libsasl2-dev libldap2-dev python3-lxml libjpeg-dev \
     libssl-dev python-dev git python3-dev curl wget unzip locales tree wkhtmltopdf tmux vim postgresql-client\
     build-essential libsqlite3-dev zlib1g-dev libncurses5-dev libgdbm-dev libbz2-dev libreadline-gplv2-dev libssl-dev libdb-dev
-RUN wget https://raw.githubusercontent.com/odoo/odoo/11.0/requirements.txt
-RUN LC_ALL=C.UTF-8 LANG=C.UTF-8 python3.5 -m pip install -Ur requirements.txt &&  rm requirements.txt
+RUN wget https://raw.githubusercontent.com/odoo/odoo/saas-11.5/requirements.txt
+RUN LC_ALL=C.UTF-8 LANG=C.UTF-8 python3 -m pip install -Ur requirements.txt &&  rm requirements.txt
 RUN curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh
 RUN chmod +x nodesource_setup.sh && ./nodesource_setup.sh && rm nodesource_setup.sh
 RUN apt-get install nodejs yarn -y
@@ -30,8 +29,9 @@ RUN python3 -m pip install -U bpython
 RUN python3 -m pip install pyopenssl
 RUN python3 -m pip install ebaysdk
 RUN python3 -m pip install phonenumbers
+RUN python3 -m pip install conekta
 RUN python3 -m pip install -U powerline-status
-RUN npm install -g less grunt
+RUN npm install -g sass less grunt
 ADD extraFiles/entrypoint.sh /usr/local/bin/entrypoint.sh
 ADD extraFiles/supervisor.conf /etc/supervisord.conf
 RUN chmod +x /usr/local/bin/entrypoint.sh
