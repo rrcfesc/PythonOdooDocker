@@ -1,4 +1,4 @@
-FROM python:3.6
+FROM python:3.5
 
 LABEL mantainer "rrcfesc@gmail.com"
 
@@ -30,6 +30,7 @@ RUN python3 -m pip install pyopenssl
 RUN python3 -m pip install ebaysdk
 RUN python3 -m pip install phonenumbers
 RUN python3 -m pip install conekta
+RUN python3 -m pip install psycopg2
 RUN python3 -m pip install -U powerline-status
 RUN npm install -g sass less grunt
 ADD extraFiles/entrypoint.sh /usr/local/bin/entrypoint.sh
