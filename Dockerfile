@@ -32,6 +32,7 @@ RUN python3 -m pip install ebaysdk
 RUN python3 -m pip install phonenumbers
 RUN python3 -m pip install conekta
 RUN python3 -m pip install psycopg2
+RUN python3 -m pip install ptvsd
 RUN python3 -m pip install -U powerline-status
 RUN npm install -g less grunt
 ADD extraFiles/entrypoint.sh /usr/local/bin/entrypoint.sh
