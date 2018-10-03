@@ -4,6 +4,8 @@ LABEL mantainer "rrcfesc@gmail.com"
 
 ENV USER odoo
 ENV VERSION 11.0
+ENV PORT 8000
+ENV ODOOPORT 8069
 
 RUN apt-get update && apt-get install -y --no-install-recommends locales apt-utils
 RUN set -x; \
@@ -17,8 +19,8 @@ RUN update-locale LANG=en_US.UTF-8
 RUN echo "export LANG=en_US.UTF-8\nexport LANGUAGE=en_US.UTF-8\nexport LC_ALL=en_US.UTF-8\nexport PYTHONIOENCODING=UTF-8" | tee -a /etc/bash.bashrc
 #RUN source /etc/bash.bashrc
 RUN apt-get install -y gcc g++ apt-utils python-pip make libxml2-dev libxslt-dev libevent-dev libsasl2-dev libldap2-dev python3-lxml libjpeg-dev \
-    libssl-dev python-dev git python3-dev curl wget unzip locales tree wkhtmltopdf tmux vim\
-    build-essential libsqlite3-dev zlib1g-dev libncurses5-dev libgdbm-dev libbz2-dev libreadline-gplv2-dev libssl-dev libdb-dev
+    libssl-dev python-dev git python3-dev curl wget unzip locales tree wkhtmltopdf tmux vim postgresql-client\
+    build-essential telnet libsqlite3-dev zlib1g-dev libncurses5-dev libgdbm-dev libbz2-dev libreadline-gplv2-dev libssl-dev libdb-dev
 RUN wget https://raw.githubusercontent.com/odoo/odoo/11.0/requirements.txt
 RUN LC_ALL=C.UTF-8 LANG=C.UTF-8 python3.5 -m pip install -Ur requirements.txt &&  rm requirements.txt
 RUN curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh
@@ -28,11 +30,17 @@ RUN python3 -m pip install -U bpython
 RUN python3 -m pip install pyopenssl
 RUN python3 -m pip install ebaysdk
 RUN python3 -m pip install phonenumbers
-RUN npm install -g less
+RUN python3 -m pip install conekta
+RUN python3 -m pip install psycopg2
+RUN python3 -m pip install ptvsd
+RUN python3 -m pip install -U powerline-status
+RUN npm install -g less grunt
 ADD extraFiles/entrypoint.sh /usr/local/bin/entrypoint.sh
 ADD extraFiles/supervisor.conf /etc/supervisord.conf
 RUN chmod +x /usr/local/bin/entrypoint.sh
 RUN python2 -m pip install supervisor
+RUN wget https://github.com/django/django/archive/2.1.1.tar.gz && tar -zxf 2.1.1.tar.gz && mv django-2.1.1 django
+RUN pip install -e django/
 #RUN easy_install supervisor
 RUN ls -al /usr/local/bin/entrypoint.sh
 RUN useradd  -m -d /home/${USER} -s /bin/bash ${USER}
@@ -47,9 +55,8 @@ RUN echo '"filetype plugin indent on \n"show existing tab with 4 spaces width\ns
 RUN sed -i 's/ set mouse\=a/\"set mouse\=a/g' /home/${USER}/.vimrc
 RUN sed -i "s/let g:neocomplete#enable_at_startup = 1/let g:neocomplete#enable_at_startup = 0/g" /home/${USER}/.vimrc
 
-USER ${USER}
 WORKDIR /home/${USER}
 
-EXPOSE 8069
+EXPOSE 8069 8000
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
