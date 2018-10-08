@@ -26,8 +26,10 @@ services:
       environment:
         POSTGRES_PASSWORD: "passwd"
         POSTGRES_DB: "odooskeleton"
-
 ```
+### Django version
+v2.1.1
+
 ### Considerations
 Alway use or change de odoo User
 ```
