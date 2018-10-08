@@ -31,6 +31,7 @@ RUN python3 -m pip install ebaysdk
 RUN python3 -m pip install phonenumbers
 RUN python3 -m pip install conekta
 RUN python3 -m pip install psycopg2
+RUN python3 -m pip install ptvsd
 RUN python3 -m pip install -U powerline-status
 RUN npm install -g sass less grunt
 ADD extraFiles/entrypoint.sh /usr/local/bin/entrypoint.sh
@@ -53,7 +54,6 @@ RUN echo '"filetype plugin indent on \n"show existing tab with 4 spaces width\ns
 RUN sed -i 's/ set mouse\=a/\"set mouse\=a/g' /home/${USER}/.vimrc
 RUN sed -i "s/let g:neocomplete#enable_at_startup = 1/let g:neocomplete#enable_at_startup = 0/g" /home/${USER}/.vimrc
 
-USER ${USER}
 WORKDIR /home/${USER}
 
 EXPOSE 8069 8000
