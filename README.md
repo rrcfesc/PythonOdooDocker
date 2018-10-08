@@ -25,36 +25,17 @@ services:
     depends_on:
       - postgresql
   postgresql:
-    image: postgres:10
-    restart : always
-    container_name: "rioxygen_db"
-    ports:
-      - "5432:5432"
-    volumes:
-      - ./database:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: "odoo"
-      POSTGRES_PASSWORD: "passwd"
-      POSTGRES_DB: odooskeleton
+      image: postgres:10
+      hostname: "odooskeleton_db"
+      container_name: "odooskeleton_db"
+      volumes:
+        - ./database2:/var/lib/postgresql/data
+      environment:
+        POSTGRES_PASSWORD: "passwd"
+        POSTGRES_DB: "odooskeleton"
 ```
-## Suport to django proyects
-
-
-```Dockerfile
-FROM rrcfesc/pythonodoodocker:11.0
-
-ENV USER odoo
-
-ADD requirements.txt requirements.txt
-RUN LC_ALL=C.UTF-8 LANG=C.UTF-8 python3.5 -m pip install -Ur requirements.txt &&  rm requirements.txt
-
-USER ${USER}
-WORKDIR /home/${USER}
-
-EXPOSE 8069 8000
-
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-```
+### Django version
+v2.1.1
 
 ### Considerations
 
