@@ -19,7 +19,8 @@ RUN echo "export LANG=en_US.UTF-8\nexport LANGUAGE=en_US.UTF-8\nexport LC_ALL=en
 #RUN source /etc/bash.bashrc
 RUN apt-get install -y gcc g++ apt-utils python-pip make libxml2-dev libxslt-dev libevent-dev libsasl2-dev libldap2-dev python3-lxml libjpeg-dev \
     libssl-dev python-dev git python3-dev curl wget unzip locales tree tmux vim postgresql-client\
-    build-essential libsqlite3-dev xfonts-75dpi zlib1g-dev libjpeg-turbo8 libpng12-0 libncurses5-dev libgdbm-dev libbz2-dev libreadline-gplv2-dev libssl-dev libdb-dev
+    build-essential libsqlite3-dev xfonts-75dpi zlib1g-dev libncurses5-dev libgdbm-dev libbz2-dev libreadline-gplv2-dev libssl-dev libdb-dev
+RUN wget http://http.us.debian.org/debian/pool/main/x/xfonts-base/xfonts-base_1.0.4+nmu1_all.deb && dpkg -i xfonts-base_1.0.4+nmu1_all.deb
 RUN wget https://downloads.wkhtmltopdf.org/0.12/0.12.5/wkhtmltox_0.12.5-1.stretch_amd64.deb && dpkg -i wkhtmltox_0.12.5-1.stretch_amd64.deb
 RUN wget https://raw.githubusercontent.com/odoo/odoo/12.0/requirements.txt
 RUN python3 -m pip install --upgrade pip
