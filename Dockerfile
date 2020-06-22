@@ -26,7 +26,7 @@ ADD extraFiles/wkhtmltox_0.12.5-1.stretch_amd64.deb wkhtmltox_0.12.5-1.stretch_a
 RUN dpkg -i wkhtmltox_0.12.5-1.stretch_amd64.deb && rm  wkhtmltox_0.12.5-1.stretch_amd64.deb
 ADD extraFiles/requirements.txt requirements.txt
 RUN python3 -m pip install --upgrade pip && LC_ALL=C.UTF-8 LANG=C.UTF-8 python3 -m pip install -Ur requirements.txt &&  rm requirements.txt
-RUN curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh
+RUN curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh
 RUN chmod +x nodesource_setup.sh && ./nodesource_setup.sh && rm nodesource_setup.sh
 RUN apt-get install nodejs yarn -y
 RUN python3 -m pip install -U bpython
