@@ -1,4 +1,4 @@
-FROM python:3.6
+FROM python:3.8
 
 LABEL mantainer "rrcfesc@gmail.com"
 
@@ -30,33 +30,33 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh
 RUN chmod +x nodesource_setup.sh && ./nodesource_setup.sh && rm nodesource_setup.sh
 RUN apt-get install nodejs yarn -y
 RUN python3 -m pip install -U bpython
-RUN python3 -m pip install pyopenssl
-RUN python3 -m pip install ebaysdk
+#RUN python3 -m pip install pyopenssl
+#RUN python3 -m pip install ebaysdk
 RUN python3 -m pip install phonenumbers
-RUN python3 -m pip install conekta
+#RUN python3 -m pip install conekta
 RUN python3 -m pip install psycopg2
-RUN python3 -m pip install ptvsd
-RUN python3 -m pip install -U powerline-status
-RUN npm install -g sass less grunt
+#RUN python3 -m pip install ptvsd
+#RUN python3 -m pip install -U powerline-status
+#RUN npm install -g sass less
 ADD extraFiles/entrypoint.sh /usr/local/bin/entrypoint.sh
 ADD extraFiles/supervisor.conf /etc/supervisord.conf
 RUN chmod +x /usr/local/bin/entrypoint.sh
 RUN python2 -m pip install supervisor
-RUN wget https://github.com/django/django/archive/2.1.1.tar.gz && tar -zxf 2.1.1.tar.gz && mv django-2.1.1 django
-RUN pip install -e django/ && rm -rf django
+RUN python -m pip install Django
 #RUN easy_install supervisor
 RUN ls -al /usr/local/bin/entrypoint.sh
 RUN useradd  -m -d /home/${USER} -s /bin/bash ${USER}
 RUN passwd ${USER} -d
 # configure vim IDE
-RUN git clone --depth=1 --single-branch https://github.com/spf13/spf13-vim.git /tmp/spf13-vim
-RUN su - ${USER} -c "source /etc/bash.bashrc"
-RUN su - ${USER} -c "/tmp/spf13-vim/bootstrap.sh"
-RUN su - ${USER} -c "mkdir -p ~/.vim/spell"
-RUN su - ${USER} -c "wget -q http://ftp.vim.org/pub/vim/runtime/spell/es.utf-8.spl -O ~/.vim/spell/es.utf-8.spl"
-RUN echo '"filetype plugin indent on \n"show existing tab with 4 spaces width\nset tabstop=4 \n"when indenting with >, use 4 spaces width \nset shiftwidth=4 \n"On pressing tab, insert 4 spaces \nset expandtab \ncolorscheme heliotrope\n"Disable pymode because show ImporError\nlet g:pymode=0\nset spelllang=en,es\n' >> /home/${USER}/.vimrc
-RUN sed -i 's/ set mouse\=a/\"set mouse\=a/g' /home/${USER}/.vimrc
-RUN sed -i "s/let g:neocomplete#enable_at_startup = 1/let g:neocomplete#enable_at_startup = 0/g" /home/${USER}/.vimrc
+#RUN git clone --depth=1 --single-branch https://github.com/spf13/spf13-vim.git /tmp/spf13-vim
+#RUN su - ${USER} -c "source /etc/bash.bashrc"
+#RUN su - ${USER} -c "/tmp/spf13-vim/bootstrap.sh"
+#RUN su - ${USER} -c "mkdir -p ~/.vim/spell"
+#RUN su - ${USER} -c "wget -q http://ftp.vim.org/pub/vim/runtime/spell/es.utf-8.spl -O ~/.vim/spell/es.utf-8.spl"
+#RUN echo '"filetype plugin indent on \n"show existing tab with 4 spaces width\nset tabstop=4 \n"when indenting with >, use 4 spaces width \nset shiftwidth=4 \n"On pressing tab, insert 4 spaces \nset expandtab \ncolorscheme heliotrope\n"Disable pymode because show ImporError\nlet g:pymode=0\nset spelllang=en,es\n' >> /home/${USER}/.vimrc
+#RUN sed -i 's/ set mouse\=a/\"set mouse\=a/g' /home/${USER}/.vimrc
+#RUN sed -i "s/let g:neocomplete#enable_at_startup = 1/let g:neocomplete#enable_at_startup = 0/g" /home/${USER}/.vimrc
+RUN apt install inetutils-ping nmap -y
 
 WORKDIR /home/${USER}
 
